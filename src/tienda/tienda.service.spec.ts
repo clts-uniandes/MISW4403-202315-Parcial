@@ -53,7 +53,7 @@ describe('TiendaService', () => {
     expect(tienda.nombre).toEqual(storedTienda.nombre);
     expect(tienda.ciudad).toEqual(storedTienda.ciudad);
     expect(tienda.direccion).toEqual(storedTienda.direccion);
-  });
+  }); 
 
   it('findOne should throw an exception for an invalid tienda', async () => {
     await expect(() => service.findOne('0')).rejects.toHaveProperty(
