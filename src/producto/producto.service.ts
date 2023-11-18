@@ -74,6 +74,6 @@ export class ProductoService {
       throw new BusinessLogicException(
         'Tipo de producto no permitido',
         BusinessError.BAD_REQUEST,
-      );
+      ); 
   }
 }
