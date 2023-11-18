@@ -53,7 +53,7 @@ describe('TiendaService', () => {
     expect(tienda.nombre).toEqual(storedTienda.nombre);
     expect(tienda.ciudad).toEqual(storedTienda.ciudad);
     expect(tienda.direccion).toEqual(storedTienda.direccion);
-  }); 
+  });
 
   it('findOne should throw an exception for an invalid tienda', async () => {
     await expect(() => service.findOne('0')).rejects.toHaveProperty(
@@ -68,8 +68,7 @@ describe('TiendaService', () => {
       nombre: faker.company.name(),
       ciudad: faker.string.alpha({ length: 3, casing: 'upper' }),
       direccion: faker.location.streetAddress(),
-      productos: [],
-    };
+    } as TiendaEntity;
     const newTienda: TiendaEntity = await service.create(tienda);
     expect(newTienda).not.toBeNull();
     const storedTienda: TiendaEntity = await repository.findOne({
@@ -79,6 +78,20 @@ describe('TiendaService', () => {
     expect(storedTienda.nombre).toEqual(newTienda.nombre);
     expect(storedTienda.ciudad).toEqual(newTienda.ciudad);
     expect(storedTienda.direccion).toEqual(newTienda.direccion);
+  });
+
+  it('create should throw an exception for unsupported ciudad', async () => {
+    const tienda: TiendaEntity = {
+      id: '',
+      nombre: faker.company.name(),
+      ciudad: 'CI2',
+      direccion: faker.location.streetAddress(),
+    } as TiendaEntity;
+
+    await expect(() => service.create(tienda)).rejects.toHaveProperty(
+      'message',
+      'Ciudad no válida',
+    );
   });
 
   it('update should modify a tienda', async () => {
