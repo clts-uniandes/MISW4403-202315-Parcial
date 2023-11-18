@@ -5,7 +5,7 @@ export class ProductoDto {
   @IsNotEmpty()
   readonly nombre: string;
 
-  @IsNumber()
+  @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
   readonly precio: number;
 
